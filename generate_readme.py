@@ -30,7 +30,6 @@ Automated tracking index monitoring open-source Bitcoin wallets, hardware firmwa
 """
 
 async def trigger_repograde_scan(page, repo_path: str):
-    return
     report_url = f"https://repo-grade.com/report/{repo_path}"
     badge_url = f"https://repo-grade.com/api/badge/{repo_path}?t={int(time.time())}"
     print(f"[Browser] Navigating to: {report_url}")
