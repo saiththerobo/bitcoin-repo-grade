@@ -91,7 +91,7 @@ STACK_DATA = [
                 "description": "Air-gapped multi-sig focused hardware wallet.",
                 "repo": "KeystoneHQ/keystone3-firmware",
                 "dependencies": [
-                    {"name": "bc-ur", "repo": "BlockchainCommons/bc-ur", "role": "C++ Uniform Resources QR specification"}
+                    {"name": "secp256k1-zkp", "repo": "ElementsProject/secp256k1-zkp", "role": "Schnorr signatures and EC curve operations"}
                 ]
             },
             {
