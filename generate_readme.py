@@ -1,6 +1,6 @@
 """
-Reads categorized data from btc_stack_data.py, launches a headless browser via Playwright
-to render JS frontend scanner tasks on RepoGrade, and generates README.md.
+Reads categorized data from btc_stack_data.py, launches headless Playwright browser
+to trigger RepoGrade JavaScript evaluators, and generates a polished README.md.
 """
 
 import asyncio
@@ -10,44 +10,39 @@ from btc_stack_data import STACK_DATA
 
 README_TEMPLATE = """# 🔐 Bitcoin Self-Custody & Infrastructure Health
 
-Automated tracking index monitoring major open-source Bitcoin wallets, hardware firmware, and protocol dependencies alongside real-time **RepoGrade** quality badges.
+Automated tracking index monitoring open-source Bitcoin wallets, hardware firmware, and protocol dependencies alongside real-time **RepoGrade** quality badges.
 
 ---
 
 {% for cat in categories %}
 ## 🛠 {{ cat.category }}
 
-| Project / Repository | Primary Dependencies & Grades | Repo Grade | GitHub Stars |
+| Project / Target | Primary Dependencies | Repo Grade | GitHub Stars |
 | :--- | :--- | :---: | :---: |
-{% for item in cat.projects %}| **[{{ item.name }}](https://github.com/{{ item.repo }})**<br><sub>{{ item.description }}</sub> | {% if item.dependencies %}{% for dep in item.dependencies %}**[{{ dep.name }}](https://github.com/{{ dep.repo }})** [![Grade](https://repo-grade.com/api/badge/{{ dep.repo }})](https://repo-grade.com/report/{{ dep.repo }})<br><sub>{{ dep.role }}</sub>{% if not loop.last %}<br><br>{% endif %}{% endfor %}{% else %}<sub>None listed</sub>{% endif %} | [![Grade](https://repo-grade.com/api/badge/{{ item.repo }})](https://repo-grade.com/report/{{ item.repo }}) | ![Stars](https://img.shields.io/github/stars/{{ item.repo }}?style=social) |
+{% for item in cat.projects %}| **[{{ item.name }}](https://github.com/{{ item.repo }})**<br><sub>{{ item.description }}</sub> | {% if item.dependencies %}{% for dep in item.dependencies %}• **[{{ dep.name }}](https://github.com/{{ dep.repo }})** [![Grade](https://repo-grade.com/api/badge/{{ dep.repo }})](https://repo-grade.com/report/{{ dep.repo }})<br>&nbsp;&nbsp;&nbsp;&nbsp;<sub><i>{{ dep.role }}</i></sub>{% if not loop.last %}<br>{% endif %}{% endfor %}{% else %}<sub>None listed</sub>{% endif %} | [![Grade](https://repo-grade.com/api/badge/{{ item.repo }})](https://repo-grade.com/report/{{ item.repo }}) | ![Stars](https://img.shields.io/github/stars/{{ item.repo }}?style=social) |
 {% endfor %}
 
 ---
 {% endfor %}
 
-<sub>*Dashboard updated automatically via Python scripts using Jinja2 templates.*</sub>
+<sub>*Dashboard updated automatically via Python scripts and Playwright.*</sub>
 """
 
 async def trigger_repograde_scan(page, repo_path: str):
-    """Loads the report URL in a real browser and waits for JS execution."""
     url = f"https://repo-grade.com/report/{repo_path}"
     print(f"[Browser] Navigating to: {url}")
     try:
-        # Load page and wait until DOM and network requests settle
         await page.goto(url, wait_until="networkidle", timeout=20000)
-        await page.wait_for_timeout(3000)  # Extra buffer for JS evaluation
-        print(f"[Browser] Successfully triggered JS evaluation for {repo_path}")
+        await page.wait_for_timeout(3000)
     except Exception as e:
-        print(f"[Browser Warning] Timeout or error loading {repo_path}: {e}")
+        print(f"[Warning] Timeout loading {repo_path}: {e}")
 
 async def prefetch_all_with_browser(categories):
-    """Spawns headless Chromium to interact with all repo pages."""
     seen = set()
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
-        # Set a standard desktop viewport & user agent
         context = await browser.new_context(
-            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
         )
         page = await context.new_page()
 
@@ -67,10 +62,8 @@ async def prefetch_all_with_browser(categories):
         await browser.close()
 
 def main():
-    # 1. Run headless browser pass to force client-side evaluation
     asyncio.run(prefetch_all_with_browser(STACK_DATA))
 
-    # 2. Render Markdown output
     template = Template(README_TEMPLATE)
     rendered_markdown = template.render(categories=STACK_DATA)
 
