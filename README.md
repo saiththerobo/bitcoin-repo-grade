@@ -31,7 +31,7 @@ Automated tracking index monitoring major open-source Bitcoin wallets, hardware 
 | Project / Repository | Primary Dependencies & Grades | Repo Grade | GitHub Stars |
 | :--- | :--- | :---: | :---: |
 | **[Bitcoin Core](https://github.com/bitcoin/bitcoin)**<br><sub>Reference implementation of the Bitcoin protocol.</sub> | **[secp256k1](https://github.com/bitcoin-core/secp256k1)** [![Grade](https://repo-grade.com/api/badge/bitcoin-core/secp256k1)](https://repo-grade.com/report/bitcoin-core/secp256k1)<br><sub>Optimized C library for EC operations.</sub> | [![Grade](https://repo-grade.com/api/badge/bitcoin/bitcoin)](https://repo-grade.com/report/bitcoin/bitcoin) | ![Stars](https://img.shields.io/github/stars/bitcoin/bitcoin?style=social) |
-| **[embit](https://github.com/diybitcoingpu/embit)**<br><sub>Python/MicroPython Bitcoin library driving SeedSigner, Krux, and Specter.</sub> | <sub>None listed</sub> | [![Grade](https://repo-grade.com/api/badge/diybitcoingpu/embit)](https://repo-grade.com/report/diybitcoingpu/embit) | ![Stars](https://img.shields.io/github/stars/diybitcoingpu/embit?style=social) |
+| **[embit](https://github.com/diybitcoinhardware/embit)**<br><sub>Python/MicroPython Bitcoin library driving SeedSigner, Krux, and Specter.</sub> | <sub>None listed</sub> | [![Grade](https://repo-grade.com/api/badge/diybitcoinhardware/embit)](https://repo-grade.com/report/diybitcoinhardware/embit) | ![Stars](https://img.shields.io/github/stars/diybitcoinhardware/embit?style=social) |
 
 
 ---
