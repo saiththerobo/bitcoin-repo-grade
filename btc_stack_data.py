@@ -50,7 +50,7 @@ STACK_DATA = [
                 "description": "Monorepo for Trezor Safe, Model T, and One devices.",
                 "repo": "trezor/trezor-firmware",
                 "dependencies": [
-                    {"name": "trezor-crypto", "repo": "trezor/trezor-crypto", "role": "C-optimized crypto library"}
+                    {"name": "secp256k1-zkp", "repo": "ElementsProject/secp256k1-zkp", "role": "Crypto primitives and EC curve operations"}
                 ]
             },
             {
@@ -90,7 +90,7 @@ STACK_DATA = [
             {
                 "name": "Keystone Firmware",
                 "description": "Air-gapped multi-sig focused hardware wallet.",
-                "repo": "KeystoneHQ/Keystone-3-Pro-Firmware",
+                "repo": "KeystoneHQ/keystone3-firmware",
                 "dependencies": [
                     {"name": "bc-ur-python", "repo": "BlockchainCommons/bc-ur-python", "role": "UR QR code format specs"}
                 ]
