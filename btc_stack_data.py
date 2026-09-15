@@ -75,8 +75,7 @@ STACK_DATA = [
                 "description": "ESP32-based hardware wallet supporting Bitcoin & Liquid.",
                 "repo": "Blockstream/jade",
                 "dependencies": [
-                    {"name": "jadepy", "repo": "Blockstream/jadepy", "role": "Python companion client"},
-                    {"name": "wallycore", "repo": "ElementsProject/libwally-core", "role": "C cross-platform library"}
+                    {"name": "wallycore", "repo": "ElementsProject/libwally-core", "role": "C cross-platform wallet primitives"}
                 ]
             },
             {
@@ -92,7 +91,7 @@ STACK_DATA = [
                 "description": "Air-gapped multi-sig focused hardware wallet.",
                 "repo": "KeystoneHQ/keystone3-firmware",
                 "dependencies": [
-                    {"name": "bc-ur-python", "repo": "BlockchainCommons/bc-ur-python", "role": "UR QR code format specs"}
+                    {"name": "bc-ur", "repo": "BlockchainCommons/bc-ur", "role": "C++ Uniform Resources QR specification"}
                 ]
             },
             {
