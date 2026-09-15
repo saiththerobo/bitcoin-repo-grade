@@ -1,10 +1,10 @@
 """
-Reads categorized data from btc_stack_data.py, triggers scan/report pages
-to force grading, and generates README.md with embedded RepoGrade badges.
+Reads categorized data from btc_stack_data.py, launches a headless browser via Playwright
+to render JS frontend scanner tasks on RepoGrade, and generates README.md.
 """
 
-import urllib.request
-import urllib.error
+import asyncio
+from playwright.async_api import async_playwright
 from jinja2 import Template
 from btc_stack_data import STACK_DATA
 
@@ -28,49 +28,55 @@ Automated tracking index monitoring major open-source Bitcoin wallets, hardware 
 <sub>*Dashboard updated automatically via Python scripts using Jinja2 templates.*</sub>
 """
 
-def ping_repo_grade(repo_path: str):
-    """Pings the RepoGrade report URL to queue/trigger an initial evaluation scan."""
-    report_url = f"https://repo-grade.com/report/{repo_path}"
-    headers = {'User-Agent': 'Mozilla/5.0'}
-    
+async def trigger_repograde_scan(page, repo_path: str):
+    """Loads the report URL in a real browser and waits for JS execution."""
+    url = f"https://repo-grade.com/report/{repo_path}"
+    print(f"[Browser] Navigating to: {url}")
     try:
-        req = urllib.request.Request(report_url, headers=headers)
-        with urllib.request.urlopen(req, timeout=5) as resp:
-            print(f"[Triggered Scan] {repo_path} (HTTP {resp.status})")
-    except urllib.error.HTTPError as e:
-        print(f"[HTTP Error {e.code}] Could not trigger scan for {repo_path}")
+        # Load page and wait until DOM and network requests settle
+        await page.goto(url, wait_until="networkidle", timeout=20000)
+        await page.wait_for_timeout(3000)  # Extra buffer for JS evaluation
+        print(f"[Browser] Successfully triggered JS evaluation for {repo_path}")
     except Exception as e:
-        print(f"[Warning] Failed to ping {repo_path}: {e}")
+        print(f"[Browser Warning] Timeout or error loading {repo_path}: {e}")
 
-def prefetch_all_grades(categories):
-    """Iterates through all main projects and dependencies to trigger grade scans."""
-    print("Initiating pre-fetch scan triggers for unindexed repos...")
+async def prefetch_all_with_browser(categories):
+    """Spawns headless Chromium to interact with all repo pages."""
     seen = set()
-    
-    for cat in categories:
-        for project in cat.get("projects", []):
-            repo = project.get("repo")
-            if repo and repo not in seen:
-                ping_repo_grade(repo)
-                seen.add(repo)
-                
-            for dep in project.get("dependencies", []):
-                dep_repo = dep.get("repo")
-                if dep_repo and dep_repo not in seen:
-                    ping_repo_grade(dep_repo)
-                    seen.add(dep_repo)
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=True)
+        # Set a standard desktop viewport & user agent
+        context = await browser.new_context(
+            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+        )
+        page = await context.new_page()
+
+        for cat in categories:
+            for project in cat.get("projects", []):
+                repo = project.get("repo")
+                if repo and repo not in seen:
+                    await trigger_repograde_scan(page, repo)
+                    seen.add(repo)
+
+                for dep in project.get("dependencies", []):
+                    dep_repo = dep.get("repo")
+                    if dep_repo and dep_repo not in seen:
+                        await trigger_repograde_scan(page, dep_repo)
+                        seen.add(dep_repo)
+
+        await browser.close()
 
 def main():
-    # 1. Ping report pages to force RepoGrade to run an analysis pass
-    prefetch_all_grades(STACK_DATA)
-    
-    # 2. Render Jinja template into README.md
+    # 1. Run headless browser pass to force client-side evaluation
+    asyncio.run(prefetch_all_with_browser(STACK_DATA))
+
+    # 2. Render Markdown output
     template = Template(README_TEMPLATE)
     rendered_markdown = template.render(categories=STACK_DATA)
-    
+
     with open("README.md", "w", encoding="utf-8") as f:
         f.write(rendered_markdown)
-    
+
     print("Successfully rendered README.md!")
 
 if __name__ == "__main__":
