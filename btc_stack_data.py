@@ -139,7 +139,7 @@ STACK_DATA = [
                     "description": "Threshold multisig hardware wallet based on FROST Schnorr signatures.",
                     "repo": "frostsnap/frostsnap",
                     "dependencies": [
-                        {"name": "schnorr_fun", "repo": "LLFOURN/secp256k1-fun", "role": "Rust secp256k1 and FROST implementation"}
+                        {"name": "schnorr_fun", "repo": "llfourn/secp256kfun", "role": "Rust secp256k1 and FROST implementation"}
                     ]
                 }
         ]
