@@ -4,7 +4,7 @@ Categorized dataset containing hardware wallets, desktop clients, and core libra
 """
 
 STACK_DATA = [
-    {
+{
         "category": "Desktop & Mobile Wallets",
         "projects": [
             {
@@ -22,6 +22,38 @@ STACK_DATA = [
                 "repo": "spesmilo/electrum",
                 "dependencies": [
                     {"name": "electrum-ecc", "repo": "spesmilo/electrum-ecc", "role": "secp256k1 Python bindings"}
+                ]
+            },
+            {
+                "name": "BlueWallet",
+                "description": "Popular Bitcoin and Lightning wallet for iOS and Android built with React Native.",
+                "repo": "BlueWallet/BlueWallet",
+                "dependencies": [
+                    {"name": "rn-electrum-client", "repo": "BlueWallet/rn-electrum-client", "role": "Electrum client for React Native"}
+                ]
+            },
+            {
+                "name": "Muun Wallet",
+                "description": "Self-custodial 2-of-2 multisig mobile Bitcoin and Lightning Network wallet.",
+                "repo": "muun/apollo",
+                "dependencies": [
+                    {"name": "libwallet", "repo": "muun/libwallet", "role": "Go wallet core library bound via gomobile"}
+                ]
+            },
+            {
+                "name": "Nunchuk Android",
+                "description": "Native Android Bitcoin wallet with multisig and inheritance support.",
+                "repo": "nunchuk-io/nunchuk-android",
+                "dependencies": [
+                    {"name": "libnunchuk", "repo": "nunchuk-io/libnunchuk", "role": "C++ core library for Bitcoin wallet logic"}
+                ]
+            },
+            {
+                "name": "Blockstream Green",
+                "description": "Multi-platform Bitcoin and Liquid wallet featuring 2FA multisig support.",
+                "repo": "Blockstream/green_qt",
+                "dependencies": [
+                    {"name": "gdk", "repo": "Blockstream/gdk", "role": "Green Development Kit cross-platform library"}
                 ]
             }
         ]
