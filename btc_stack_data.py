@@ -1,6 +1,5 @@
 """
 Bitcoin Self-Custody & Infrastructure Repository Registry.
-Categorized dataset containing core hardware, desktop, and node software.
 """
 
 STACK_DATA = [
@@ -9,13 +8,13 @@ STACK_DATA = [
         "projects": [
             {
                 "name": "Sparrow Wallet",
-                "description": "Financial-grade desktop Bitcoin wallet focusing on privacy, UTXO management, and PSBTs.",
+                "description": "Financial-grade desktop Bitcoin wallet focusing on privacy and UTXO management.",
                 "repo": "sparrowwallet/sparrow",
                 "dependencies": [
                     {
                         "name": "drongo",
                         "repo": "sparrowwallet/drongo",
-                        "role": "Core Bitcoin protocol & transaction domain library for Java."
+                        "role": "Core Bitcoin protocol library for Java."
                     },
                     {
                         "name": "lark",
@@ -27,7 +26,7 @@ STACK_DATA = [
             {
                 "name": "Electrum",
                 "description": "Lightweight, feature-rich Bitcoin client running Python.",
-                "repo": "sparrowwallet/electrum",  # Or official upstream spesmilo/electrum
+                "repo": "spesmilo/electrum",
                 "dependencies": [
                     {
                         "name": "electrum-ecc",
@@ -61,7 +60,7 @@ STACK_DATA = [
                     {
                         "name": "libngu",
                         "repo": "switck/libngu",
-                        "role": "MicroPython C module binding libsecp256k1 & Bitcoin primitives."
+                        "role": "MicroPython C module binding libsecp256k1."
                     },
                     {
                         "name": "ckcc-protocol",
@@ -72,13 +71,13 @@ STACK_DATA = [
             },
             {
                 "name": "BitBox02 Firmware",
-                "description": "Firmware for BitBox02 by Shift Crypto (Swiss secure element wallet).",
+                "description": "Firmware for BitBox02 by Shift Crypto.",
                 "repo": "digitalbitbox/bitbox02-firmware",
                 "dependencies": [
                     {
                         "name": "secp256k1-zkp",
                         "repo": "ElementsProject/secp256k1-zkp",
-                        "role": "Forks of libsecp256k1 supporting zero-knowledge primitives & Schnorr."
+                        "role": "Forks of libsecp256k1 supporting Schnorr."
                     }
                 ]
             }
@@ -95,14 +94,14 @@ STACK_DATA = [
                     {
                         "name": "secp256k1",
                         "repo": "bitcoin-core/secp256k1",
-                        "role": "Optimized C library for EC operations on curve secp256k1."
+                        "role": "Optimized C library for EC operations."
                     }
                 ]
             },
             {
                 "name": "embit",
-                "repo": "diybitcoingpu/embit",
                 "description": "Python/MicroPython Bitcoin library driving SeedSigner, Krux, and Specter.",
+                "repo": "diybitcoingpu/embit",
                 "dependencies": []
             }
         ]
