@@ -1,6 +1,6 @@
 """
 Reads categorized data from btc_stack_data.py and generates README.md
-with embedded RepoGrade quality badges.
+with embedded RepoGrade quality badges for projects and their dependencies.
 """
 
 from jinja2 import Template
@@ -15,9 +15,9 @@ Automated tracking index monitoring major open-source Bitcoin wallets, hardware 
 {% for cat in categories %}
 ## 🛠 {{ cat.category }}
 
-| Project / Repository | Primary Dependencies | Repo Grade | GitHub Stars |
+| Project / Repository | Primary Dependencies & Grades | Repo Grade | GitHub Stars |
 | :--- | :--- | :---: | :---: |
-{% for item in cat.projects %}| **[{{ item.name }}](https://github.com/{{ item.repo }})**<br><sub>{{ item.description }}</sub> | {% if item.dependencies %}{% for dep in item.dependencies %}**[{{ dep.name }}](https://github.com/{{ dep.repo }})**<br><sub>{{ dep.role }}</sub>{% if not loop.last %}<br><br>{% endif %}{% endfor %}{% else %}<sub>None listed</sub>{% endif %} | [![Grade](https://repo-grade.com/api/badge/{{ item.repo }})](https://repo-grade.com/report/{{ item.repo }}) | ![Stars](https://img.shields.io/github/stars/{{ item.repo }}?style=social) |
+{% for item in cat.projects %}| **[{{ item.name }}](https://github.com/{{ item.repo }})**<br><sub>{{ item.description }}</sub> | {% if item.dependencies %}{% for dep in item.dependencies %}**[{{ dep.name }}](https://github.com/{{ dep.repo }})** [![Grade](https://repo-grade.com/api/badge/{{ dep.repo }})](https://repo-grade.com/report/{{ dep.repo }})<br><sub>{{ dep.role }}</sub>{% if not loop.last %}<br><br>{% endif %}{% endfor %}{% else %}<sub>None listed</sub>{% endif %} | [![Grade](https://repo-grade.com/api/badge/{{ item.repo }})](https://repo-grade.com/report/{{ item.repo }}) | ![Stars](https://img.shields.io/github/stars/{{ item.repo }}?style=social) |
 {% endfor %}
 
 ---
@@ -33,7 +33,7 @@ def main():
     with open("README.md", "w", encoding="utf-8") as f:
         f.write(rendered_markdown)
     
-    print("Successfully rendered README.md with clean GitHub Markdown table syntax!")
+    print("Successfully rendered README.md with dependency RepoGrade badges!")
 
 if __name__ == "__main__":
     main()
