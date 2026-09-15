@@ -101,7 +101,7 @@ STACK_DATA = [
             {
                 "name": "embit",
                 "description": "Python/MicroPython Bitcoin library driving SeedSigner, Krux, and Specter.",
-                "repo": "diybitcoingpu/embit",
+                "repo": "diybitcoinhardware/embit",
                 "dependencies": []
             }
         ]
