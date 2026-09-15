@@ -17,9 +17,9 @@ Automated tracking index monitoring open-source Bitcoin wallets, hardware firmwa
 {% for cat in categories %}
 ## 🛠 {{ cat.category }}
 
-| Project / Target | Primary Dependencies | Repo Grade | GitHub Stars |
-| :--- | :--- | :---: | :---: |
-{% for item in cat.projects %}| **[{{ item.name }}](https://github.com/{{ item.repo }})**<br><sub>{{ item.description }}</sub> | {% if item.dependencies %}{% for dep in item.dependencies %}• **[{{ dep.name }}](https://github.com/{{ dep.repo }})** [![Grade](https://repo-grade.com/api/badge/{{ dep.repo }})](https://repo-grade.com/report/{{ dep.repo }})<br>&nbsp;&nbsp;&nbsp;&nbsp;<sub><i>{{ dep.role }}</i></sub>{% if not loop.last %}<br>{% endif %}{% endfor %}{% else %}<sub>None listed</sub>{% endif %} | [![Grade](https://repo-grade.com/api/badge/{{ item.repo }})](https://repo-grade.com/report/{{ item.repo }}) | ![Stars](https://img.shields.io/github/stars/{{ item.repo }}?style=social) |
+| Project / Target | Repo Grade | Primary Dependencies & Grades | GitHub Stars |
+| :--- | :---: | :--- | :---: |
+{% for item in cat.projects %}| **[{{ item.name }}](https://github.com/{{ item.repo }})**<br><sub>{{ item.description }}</sub> | [![Grade](https://repo-grade.com/api/badge/{{ item.repo }})](https://repo-grade.com/report/{{ item.repo }}) | {% if item.dependencies %}<ul style="margin:0; padding-left:15px;">{% for dep in item.dependencies %}<li>**[{{ dep.name }}](https://github.com/{{ dep.repo }})** [![Grade](https://repo-grade.com/api/badge/{{ dep.repo }})](https://repo-grade.com/report/{{ dep.repo }})<br><sub><i>{{ dep.role }}</i></sub></li>{% endfor %}</ul>{% else %}<sub>None listed</sub>{% endif %} | ![Stars](https://img.shields.io/github/stars/{{ item.repo }}?style=social) |
 {% endfor %}
 
 ---
@@ -29,6 +29,7 @@ Automated tracking index monitoring open-source Bitcoin wallets, hardware firmwa
 """
 
 async def trigger_repograde_scan(page, repo_path: str):
+    return 
     url = f"https://repo-grade.com/report/{repo_path}"
     print(f"[Browser] Navigating to: {url}")
     try:
