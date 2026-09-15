@@ -17,8 +17,7 @@ Automated tracking index monitoring major open-source Bitcoin wallets, hardware 
 
 | Project / Repository | Primary Dependencies | Repo Grade | GitHub Stars |
 | :--- | :--- | :---: | :---: |
-{% for item in cat.projects %}
-| **[{{ item.name }}](https://github.com/{{ item.repo }})**<br><sub>{{ item.description }}</sub> | {% if item.dependencies %}{% for dep in item.dependencies %}**[{{ dep.name }}](https://github.com/{{ dep.repo }})**<br><sub>{{ dep.role }}</sub>{% if not loop.last %}<br><br>{% endif %}{% endfor %}{% else %}<sub>None listed</sub>{% endif %} | [![Grade](https://repo-grade.com/api/badge/{{ item.repo }})](https://repo-grade.com/report/{{ item.repo }}) | ![Stars](https://img.shields.io/github/stars/{{ item.repo }}?style=social) |
+{% for item in cat.projects %}| **[{{ item.name }}](https://github.com/{{ item.repo }})**<br><sub>{{ item.description }}</sub> | {% if item.dependencies %}{% for dep in item.dependencies %}**[{{ dep.name }}](https://github.com/{{ dep.repo }})**<br><sub>{{ dep.role }}</sub>{% if not loop.last %}<br><br>{% endif %}{% endfor %}{% else %}<sub>None listed</sub>{% endif %} | [![Grade](https://repo-grade.com/api/badge/{{ item.repo }})](https://repo-grade.com/report/{{ item.repo }}) | ![Stars](https://img.shields.io/github/stars/{{ item.repo }}?style=social) |
 {% endfor %}
 
 ---
@@ -34,7 +33,7 @@ def main():
     with open("README.md", "w", encoding="utf-8") as f:
         f.write(rendered_markdown)
     
-    print("Successfully rendered README.md with categorized Bitcoin ecosystem repositories!")
+    print("Successfully rendered README.md with clean GitHub Markdown table syntax!")
 
 if __name__ == "__main__":
     main()
