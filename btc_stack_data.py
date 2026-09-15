@@ -24,12 +24,12 @@ STACK_DATA = [
                     {"name": "electrum-ecc", "repo": "spesmilo/electrum-ecc", "role": "secp256k1 Python bindings"}
                 ]
             },
-            {
+{
                 "name": "BlueWallet",
                 "description": "Popular Bitcoin and Lightning wallet for iOS and Android built with React Native.",
                 "repo": "BlueWallet/BlueWallet",
                 "dependencies": [
-                    {"name": "rn-electrum-client", "repo": "BlueWallet/rn-electrum-client", "role": "Electrum client for React Native"}
+                    {"name": "bdk-rn", "repo": "bitcoindevkit/bdk-rn", "role": "React Native bindings for Bitcoin Dev Kit (BDK)"}
                 ]
             },
             {
