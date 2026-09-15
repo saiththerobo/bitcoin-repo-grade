@@ -133,7 +133,15 @@ STACK_DATA = [
                 "dependencies": [
                     {"name": "embit", "repo": "diybitcoinhardware/embit", "role": "MicroPython cryptographic primitives"}
                 ]
-            }
+            },
+            {
+                    "name": "Frostsnap",
+                    "description": "Threshold multisig hardware wallet based on FROST Schnorr signatures.",
+                    "repo": "frostsnap/frostsnap",
+                    "dependencies": [
+                        {"name": "schnorr_fun", "repo": "LLFOURN/secp256k1-fun", "role": "Rust secp256k1 and FROST implementation"}
+                    ]
+                }
         ]
     },
     {
