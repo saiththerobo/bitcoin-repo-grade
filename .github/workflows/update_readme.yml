@@ -5,9 +5,6 @@ on:
   push:
     branches:
       - main
-  # Triggers automatically every day at 00:00 UTC
-  schedule:
-    - cron: '0 0 * * *'
   # Allows manual triggers from the GitHub Actions UI
   workflow_dispatch:
 
